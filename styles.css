@@ -25,15 +25,18 @@ h1 {
     color: #333;
 }
 
-.content {
+.sections {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    gap: 20px; /* Add gap between sections */
 }
 
 .input-section, .result-section {
-    flex: 1;
-    margin: 0 10px;
+    width: 48%;
+    padding: 20px; /* Add padding for clear separation */
+    border: 1px solid #ccc; /* Add border for clear separation */
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
 
 form {
