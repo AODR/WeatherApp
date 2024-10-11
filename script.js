@@ -1,20 +1,48 @@
 const cities = [
-    "Manila", "Quezon City", "Caloocan", "Davao City", "Cebu City", "Zamboanga City", 
-    "Taguig", "Antipolo", "Pasig", "Cagayan de Oro", "Parañaque", "Dasmariñas", 
-    "Valenzuela", "Las Piñas", "Bacolod", "Makati", "General Santos", "Bacoor", 
-    "Muntinlupa", "San Juan", "Iloilo City", "Malabon", "Mandaluyong", 
-    "Navotas", "Marikina", "Pasay", "Angeles", "Lapu-Lapu", "Imus", "Olongapo", 
-    "Biñan", "Santa Rosa", "Butuan", "Tagum", "Calamba", "San Pablo", "Tarlac City", 
-    "Meycauayan", "Cabanatuan", "San Fernando", "Lucena", "Baybay", "Ormoc", 
-    "Tacloban", "Cotabato City", "Kidapawan", "Koronadal", "Dipolog", "Pagadian", 
-    "Iligan", "Ozamis", "Roxas", "Dagupan", "Santiago", "Tuguegarao", "Vigan", 
-    "Laoag", "Baguio", "San Carlos", "Silay", "Talisay", "Cadiz", "Escalante", 
-    "Himamaylan", "Kabankalan", "La Carlota", "Sagay", "Sipalay", "Victorias"
+    // Philippines
+    "Manila, PH", "Quezon City, PH", "Caloocan, PH", "Davao City, PH", "Cebu City, PH", "Zamboanga City, PH",
+    "Taguig, PH", "Antipolo, PH", "Pasig, PH", "Cagayan de Oro, PH",
+    
+    // United States
+    "New York, US", "Los Angeles, US", "Chicago, US", "Houston, US", "Phoenix, US", "Philadelphia, US",
+    "San Antonio, US", "San Diego, US", "Dallas, US", "San Jose, US",
+    
+    // France
+    "Paris, FR", "Marseille, FR", "Lyon, FR", "Toulouse, FR", "Nice, FR", "Nantes, FR", "Strasbourg, FR",
+    "Montpellier, FR", "Bordeaux, FR", "Lille, FR",
+    
+    // United Kingdom
+    "London, GB", "Birmingham, GB", "Leeds, GB", "Glasgow, GB", "Sheffield, GB", "Bradford, GB",
+    "Liverpool, GB", "Edinburgh, GB", "Manchester, GB", "Bristol, GB",
+    
+    // Australia
+    "Sydney, AU", "Melbourne, AU", "Brisbane, AU", "Perth, AU", "Adelaide, AU", "Gold Coast, AU", 
+    "Canberra, AU", "Newcastle, AU", "Wollongong, AU", "Hobart, AU",
+    
+    // Canada
+    "Toronto, CA", "Montreal, CA", "Vancouver, CA", "Calgary, CA", "Edmonton, CA", "Ottawa, CA",
+    "Winnipeg, CA", "Quebec City, CA", "Hamilton, CA", "Kitchener, CA",
+    
+    // Japan
+    "Tokyo, JP", "Yokohama, JP", "Osaka, JP", "Nagoya, JP", "Sapporo, JP", "Fukuoka, JP", 
+    "Kawasaki, JP", "Kyoto, JP", "Kobe, JP", "Saitama, JP",
+    
+    // Brazil
+    "São Paulo, BR", "Rio de Janeiro, BR", "Brasília, BR", "Salvador, BR", "Fortaleza, BR", 
+    "Belo Horizonte, BR", "Manaus, BR", "Curitiba, BR", "Recife, BR", "Porto Alegre, BR",
+    
+    // India
+    "Mumbai, IN", "Delhi, IN", "Bangalore, IN", "Hyderabad, IN", "Ahmedabad, IN", "Chennai, IN",
+    "Kolkata, IN", "Surat, IN", "Pune, IN", "Jaipur, IN",
+    
+    // South Africa
+    "Johannesburg, ZA", "Cape Town, ZA", "Durban, ZA", "Pretoria, ZA", "Port Elizabeth, ZA",
+    "Bloemfontein, ZA", "East London, ZA", "Soweto, ZA", "Pietermaritzburg, ZA", "Kimberley, ZA"
 ];
 
 document.getElementById('cityInput').addEventListener('input', function() {
     const input = this.value.toLowerCase();
-    const suggestions = cities.filter(city => city.toLowerCase().startsWith(input));
+    const suggestions = cities.filter(city => city.toLowerCase().includes(input));
     updateCityList(suggestions);
 });
 
@@ -31,15 +59,15 @@ function updateCityList(suggestions) {
 // Fetch and display weather data when a city is selected
 document.getElementById('weatherForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    const city = document.getElementById('cityInput').value;
-    getWeatherData(city);
+    const cityCountry = document.getElementById('cityInput').value;
+    getWeatherData(cityCountry);
 });
 
-async function getWeatherData(city) {
+async function getWeatherData(cityCountry) {
     const apiKey = 'fe7e04a4baf149bdefb3939ada5b8e94';  // Your OpenWeatherMap API key
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityCountry}&appid=${apiKey}&units=metric`;
 
-    console.log(`Fetching weather data for: ${city}`);
+    console.log(`Fetching weather data for: ${cityCountry}`);
     console.log(`URL: ${url}`);
 
     document.getElementById('loading').style.display = 'block';
@@ -76,7 +104,7 @@ function displayWeather(data) {
     const icon = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
 
     weatherDisplay.innerHTML = `
-        <h2>${data.name}</h2>
+        <h2>${data.name}, ${data.sys.country}</h2>
         <img src="${icon}" alt="${weatherCondition}">
         <p>${weatherCondition}</p>
         <p>Temperature: ${temp}°C</p>
