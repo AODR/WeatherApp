@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Dashboard</h1>
+        <div class="content">
+            <div class="input-section">
+                <form id="weatherForm" aria-label="Weather Form">
+                    <label for="cityInput">City Name:</label>
+                    <input type="text" id="cityInput" list="cityList" placeholder="Enter city name" required aria-required="true">
+                    <datalist id="cityList"></datalist>
+                    <button type="submit">Get Weather</button>
+                </form>
+            </div>
+            <div class="result-section">
+                <div id="loading" class="loading" style="display: none;">Loading...</div>
+                <div id="weatherDisplay" class="weather-display">
+                    <!-- Weather data will be displayed here -->
+                </div>
+                <div id="error" class="error-message"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
